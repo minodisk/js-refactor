@@ -1,0 +1,3 @@
+'.editor:not(.mini)':
+  'ctrl-r': 'js-refactor:rename'
+  'enter': 'js-refactor:done'

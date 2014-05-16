@@ -1,0 +1,10 @@
+'menu': [
+  'label': 'Packages'
+  'submenu': [
+    'label': 'JS Refactor'
+    'submenu': [
+        'label': 'Rename References'
+        'command': 'js-refactor:rename'
+    ]
+  ]
+]
