@@ -1,7 +1,7 @@
 path = require 'path'
 fs = require 'fs'
 { inspect } = require 'util'
-{ WorkspaceView } = require 'atom'
+{ WorkspaceView, Range } = require 'atom'
 
 
 openFile = (filename) ->
@@ -33,6 +33,7 @@ describe "main", ->
 
     beforeEach ->
       { editorView, editor } = openFile 'fibonacci.js'
+      editor.setCursorBufferPosition [0, 4]
       loadLanguage()
       activationPromise = activatePackage (w) ->
         watcher = w
@@ -41,8 +42,8 @@ describe "main", ->
       waitsForPromise ->
         activationPromise
       runs ->
-        errorView = atom.workspaceView.find ".js-refactor-error"
-        referenceView = atom.workspaceView.find ".js-refactor-reference"
+        errorView = atom.workspaceView.find ".refactor-error"
+        referenceView = atom.workspaceView.find ".refactor-reference"
         expect(errorView).toExist()
         expect(referenceView).toExist()
 
