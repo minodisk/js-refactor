@@ -14,7 +14,7 @@ openFile = (filename) ->
   { editorView, editor }
 
 loadLanguage = ->
-  languageCoffeeScriptPath = atom.packages.resolvePackagePath 'language-coffee-script'
+  languageCoffeeScriptPath = atom.packages.resolvePackagePath 'language-javascript'
   grammarDir = path.resolve languageCoffeeScriptPath, 'grammars'
   for filename in fs.readdirSync grammarDir
     atom.syntax.loadGrammarSync path.resolve grammarDir, filename

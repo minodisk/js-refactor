@@ -17,6 +17,7 @@ module.exports = (grunt) ->
           'menus/**/*'
           'spec/**/*'
           'stylesheets/**/*'
+          'node_modules/atom-refactor/**/*'
         ]
         livereload:
           enabled: false

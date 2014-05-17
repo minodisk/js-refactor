@@ -1,3 +1,4 @@
+esprima = require 'esprima'
 { utils: { LocationDataUtil: { locationDataToRange, rangeToLocationData, isEqualsLocationData }}} = require 'atom-refactor'
 
 
@@ -8,13 +9,13 @@ class Ripper
     delete @nodes
 
   parse: (code, callback) ->
-    try
-      rawNodes = nodes code
-    catch err
-      callback? err
-      return
-    @nodes = Ripper.generateNodes rawNodes
-    callback?()
+    # try
+    #   rawNodes = nodes code
+    # catch err
+    #   callback? err
+    #   return
+    # @nodes = Ripper.generateNodes rawNodes
+    # callback?()
 
   find: (range) ->
     return [] unless @nodes?
