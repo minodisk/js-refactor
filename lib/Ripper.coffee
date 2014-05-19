@@ -1,6 +1,7 @@
-{ parse } = require 'esprima'
-{ analyze } = require 'escope'
-{ Context } = require 'esrefactor'
+# { parse } = require 'esprima'
+esprima = require 'esprima'
+# { analyze } = require 'escope'
+esrefactor = require 'esrefactor'
 _ = require 'lodash'
 
 { inspect } = require 'util'
@@ -23,28 +24,75 @@ class Ripper
   #   a.end.column is b.end.column
 
   destruct: ->
-    delete @scopes
+    delete @context
 
   parse: (code, callback) ->
-    ast = parse code, loc: true, range: true, tolerant: true, tokens: true
-    @context = new Context
-    @context.setCode ast
+    # @context = new Context
+    # try
+    #   @context.setCode """
+    #   var cache, fibonacci, index, _i;
+    #
+    #   cache = [0, 1];
+    #
+    #   fibonacci = function(n) {
+    #     if (cache[n] != null) return cache[n];
+    #     return cache[n] = fibonacci(n - 1) + fibonacci(n - 2);
+    #   };
+    #
+    #   for (index = _i = 0; _i <= 10; index = ++_i) {
+    #     console.log(index, fibonacci(index));
+    #   }
+    #   """
+    # catch err
+    #   delete @context
+    #   console.error err
 
   find: (range) ->
-    return [] unless @context?
+    # return [] unless @context?
 
-    pos = 0
-    row = range.start.row
-    while --row > 0
-      console.log row
-      pos += @editor.lineLengthForBufferRow row
-    pos += range.start.column
-    console.log "-> #{pos}"
+    code = """var cache, fibonacci, index, _i;
 
-    { references } = @context.identify pos
-    console.log references.length
-    for reference in references
-      console.log inspect reference
+    cache = [0, 1];
+
+    fibonacci = function(n) {
+      if (cache[n] != null) return cache[n];
+      return cache[n] = fibonacci(n - 1) + fibonacci(n - 2);
+    };
+
+    for (index = _i = 0; _i <= 10; index = ++_i) {
+      console.log(index, fibonacci(index));
+    }""".replace(/\n/g, '')
+    console.log code
+    try
+      options =
+        loc: true
+        range: true
+        tolerant: true
+        tokens: true
+      context = new esrefactor.Context
+      syntax = esprima.parse code, options
+      context.setCode syntax
+    catch err
+      console.error 'error'
+      console.error err
+
+    for i in [0...100]
+      result = context.identify i
+      # if result.references?
+      console.log i, result.references
+
+    # pos = 0
+    # row = range.start.row
+    # while --row > 0
+    #   console.log row
+    #   pos += @editor.lineLengthForBufferRow row
+    # pos += range.start.column
+    # console.log "-> #{pos}"
+    #
+    # { references } = @context.identify pos
+    # console.log references.length
+    # for reference in references
+    #   console.log inspect reference
 
 
 

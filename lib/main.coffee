@@ -6,4 +6,6 @@ new class JSRefactor extends require('atom-refactor').Main
   refactorCommand: 'js-refactor:refactor'
 
   constructor: ->
+    console.log 'constructor'
     super
+    console.log 'constructed'
