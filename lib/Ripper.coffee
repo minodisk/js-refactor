@@ -1,8 +1,6 @@
-# { parse } = require 'esprima'
-esprima = require 'esprima'
-# { analyze } = require 'escope'
-esrefactor = require 'esrefactor'
-_ = require 'lodash'
+{ Context } = require '../thirdparty/esrefactor'
+{ parse } = require 'esprima'
+{ Range } = require 'atom'
 
 { inspect } = require 'util'
 
@@ -23,80 +21,45 @@ class Ripper
   #   a.end.line is b.end.line and
   #   a.end.column is b.end.column
 
+
+  @locToRange: ({ start, end }) ->
+    new Range [ start.line - 1, start.column ], [ end.line - 1, end.column ]
+
+
+
+  parseOptions:
+    loc: true
+    range: true
+    tokens: true
+    tolerant: true
+
+  constructor: (@editor) ->
+    @context = new Context
+
   destruct: ->
     delete @context
 
   parse: (code, callback) ->
-    # @context = new Context
-    # try
-    #   @context.setCode """
-    #   var cache, fibonacci, index, _i;
-    #
-    #   cache = [0, 1];
-    #
-    #   fibonacci = function(n) {
-    #     if (cache[n] != null) return cache[n];
-    #     return cache[n] = fibonacci(n - 1) + fibonacci(n - 2);
-    #   };
-    #
-    #   for (index = _i = 0; _i <= 10; index = ++_i) {
-    #     console.log(index, fibonacci(index));
-    #   }
-    #   """
-    # catch err
-    #   delete @context
-    #   console.error err
+    try
+      syntax = parse code, @parseOptions
+      @context.setCode syntax
+      callback null
+    catch err
+      callback err
 
   find: (range) ->
-    # return [] unless @context?
+    pos = 0
+    row = range.start.row
+    while --row >= 0
+      pos += 1 + @editor.lineLengthForBufferRow row
+    pos += range.start.column
 
-    code = """var cache, fibonacci, index, _i;
+    identification = @context.identify pos
+    return [] unless identification
 
-    cache = [0, 1];
-
-    fibonacci = function(n) {
-      if (cache[n] != null) return cache[n];
-      return cache[n] = fibonacci(n - 1) + fibonacci(n - 2);
-    };
-
-    for (index = _i = 0; _i <= 10; index = ++_i) {
-      console.log(index, fibonacci(index));
-    }""".replace(/\n/g, '')
-    console.log code
-    try
-      options =
-        loc: true
-        range: true
-        tolerant: true
-        tokens: true
-      context = new esrefactor.Context
-      syntax = esprima.parse code, options
-      context.setCode syntax
-    catch err
-      console.error 'error'
-      console.error err
-
-    for i in [0...100]
-      result = context.identify i
-      # if result.references?
-      console.log i, result.references
-
-    # pos = 0
-    # row = range.start.row
-    # while --row > 0
-    #   console.log row
-    #   pos += @editor.lineLengthForBufferRow row
-    # pos += range.start.column
-    # console.log "-> #{pos}"
-    #
-    # { references } = @context.identify pos
-    # console.log references.length
-    # for reference in references
-    #   console.log inspect reference
-
-
-
-    # targetLocationData = rangeToLocationData range
-    # foundNodes = Ripper.find @nodes, targetLocationData
-    # for { locationData }, i in foundNodes
-    #   locationDataToRange locationData
+    { declaration, references } = identification
+    references.unshift declaration
+    ranges = []
+    for reference in references
+      ranges.push Ripper.locToRange reference.loc
+    ranges
