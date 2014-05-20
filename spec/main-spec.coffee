@@ -1,7 +1,7 @@
 path = require 'path'
 fs = require 'fs'
 { inspect } = require 'util'
-{ WorkspaceView } = require 'atom'
+{ WorkspaceView, Range } = require 'atom'
 
 
 openFile = (filename) ->
@@ -14,7 +14,7 @@ openFile = (filename) ->
   { editorView, editor }
 
 loadLanguage = ->
-  languageCoffeeScriptPath = atom.packages.resolvePackagePath 'language-coffee-script'
+  languageCoffeeScriptPath = atom.packages.resolvePackagePath 'language-javascript'
   grammarDir = path.resolve languageCoffeeScriptPath, 'grammars'
   for filename in fs.readdirSync grammarDir
     atom.syntax.loadGrammarSync path.resolve grammarDir, filename
@@ -33,6 +33,7 @@ describe "main", ->
 
     beforeEach ->
       { editorView, editor } = openFile 'fibonacci.js'
+      editor.setCursorBufferPosition [0, 4]
       loadLanguage()
       activationPromise = activatePackage (w) ->
         watcher = w
@@ -41,8 +42,8 @@ describe "main", ->
       waitsForPromise ->
         activationPromise
       runs ->
-        errorView = atom.workspaceView.find ".js-refactor-error"
-        referenceView = atom.workspaceView.find ".js-refactor-reference"
+        errorView = atom.workspaceView.find ".refactor-error"
+        referenceView = atom.workspaceView.find ".refactor-reference"
         expect(errorView).toExist()
         expect(referenceView).toExist()
 
@@ -56,7 +57,7 @@ describe "main", ->
       waitsForPromise ->
         activationPromise
       runs ->
-        expect(referenceView.find('.marker').length).toEqual 4
+        expect(referenceView.find('.marker').length).toEqual 5
 
     it "has single cursor", ->
       waitsForPromise ->
@@ -71,7 +72,7 @@ describe "main", ->
         waitsForPromise ->
           activationPromise
         runs ->
-          expect(editor.getCursors().length).toEqual 4
+          expect(editor.getCursors().length).toEqual 5
 
     describe "when 'js-refactor:done' event is triggered", ->
 

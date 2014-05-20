@@ -1,8 +1,4 @@
-{ dirname, filename, extname, sep } = require 'path'
-firstDirname = (filepath) ->
-  filepath.split(sep)[0]
-secondDirname = (filepath) ->
-  filepath.split(sep)[1]
+{ spawn } = require 'child_process'
 
 module.exports = (grunt) ->
   grunt.initConfig
@@ -17,6 +13,7 @@ module.exports = (grunt) ->
           'menus/**/*'
           'spec/**/*'
           'stylesheets/**/*'
+          'node_modules/atom-refactor/**/*'
         ]
         livereload:
           enabled: false

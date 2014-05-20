@@ -1,4 +1,9 @@
-{ Main } = require 'atom-refactor'
-Ripper = require './Ripper'
+module.exports =
+new class JSRefactor extends require('atom-refactor').Main
 
-module.exports = new Main Ripper
+  Watcher: require './Watcher'
+  renameCommand: 'js-refactor:rename'
+  doneCommand: 'js-refactor:done'
+
+  constructor: ->
+    super
