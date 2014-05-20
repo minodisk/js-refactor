@@ -58,7 +58,8 @@ class Ripper
     return [] unless identification
 
     { declaration, references } = identification
-    references.unshift declaration
+    if declaration?
+      references.unshift declaration
     ranges = []
     for reference in references
       ranges.push Ripper.locToRange reference.loc

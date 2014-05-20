@@ -23,16 +23,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-este-watch'
 
   grunt.registerTask 'apm:test', ->
-    # done = @async()
-    # apmTest = spawn 'apm', [ 'test' ]
-    # apmTest.stdout.on 'data', (data) ->
-    #   console.log data.toString 'utf-8'
-    # apmTest.stderr.on 'data', (data) ->
-    #   console.error data.toString 'utf-8'
-    # apmTest.on 'close', ->
-    #   grunt.log.writeln 'done: apm test'
-    #   done()
-
+    done = @async()
     grunt.util.spawn
       cmd: 'apm'
       args: [ 'test' ]

@@ -57,7 +57,7 @@ describe "main", ->
       waitsForPromise ->
         activationPromise
       runs ->
-        expect(referenceView.find('.marker').length).toEqual 4
+        expect(referenceView.find('.marker').length).toEqual 5
 
     it "has single cursor", ->
       waitsForPromise ->
@@ -72,7 +72,7 @@ describe "main", ->
         waitsForPromise ->
           activationPromise
         runs ->
-          expect(editor.getCursors().length).toEqual 4
+          expect(editor.getCursors().length).toEqual 5
 
     describe "when 'js-refactor:done' event is triggered", ->
 
