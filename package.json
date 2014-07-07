@@ -1,7 +1,7 @@
 {
   "name": "js-refactor",
   "main": "./lib/main",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "JavaScript refactoring package for Atom",
   "repository": "https://github.com/minodisk/js-refactor",
   "license": "MIT",
