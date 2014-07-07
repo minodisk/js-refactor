@@ -7,25 +7,8 @@
 module.exports =
 class Ripper
 
-  # @rangeToLoc: ({ start, end }) ->
-  #   start:
-  #     line: start.row + 1
-  #     column: start.column
-  #   end:
-  #     line: end.row + 1
-  #     column: end.column
-  #
-  # @isEqualLoc: (a, b) ->
-  #   a.start.line is b.start.line and
-  #   a.start.column is b.start.column and
-  #   a.end.line is b.end.line and
-  #   a.end.column is b.end.column
-
-
   @locToRange: ({ start, end }) ->
     new Range [ start.line - 1, start.column ], [ end.line - 1, end.column ]
-
-
 
   parseOptions:
     loc: true
