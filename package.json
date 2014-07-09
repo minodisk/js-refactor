@@ -2,7 +2,7 @@
   "name": "js-refactor",
   "main": "./lib/main",
   "version": "0.1.0",
-  "description": "JavaScript refactoring package for Atom",
+  "description": "JavaScript refactoring package: Rename with `ctrl-alt-r`",
   "repository": "https://github.com/minodisk/js-refactor",
   "license": "MIT",
   "auther": {
@@ -23,7 +23,8 @@
     "lodash": "~2.4.1"
   },
   "devDependencies": {
+    "grunt": "~0.4.4",
     "grunt-este-watch": "~0.1.15",
-    "grunt": "~0.4.4"
+    "grunt-notify": "^0.3.0"
   }
 }

@@ -20,6 +20,7 @@ module.exports = (grunt) ->
       '*': ->
         [ 'apm:test' ]
 
+  grunt.loadNpmTasks 'grunt-notify'
   grunt.loadNpmTasks 'grunt-este-watch'
 
   grunt.registerTask 'apm:test', ->
