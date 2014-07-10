@@ -54,4 +54,3 @@ Rename all references of the symbol under the cursor.
 ## See
 
 * [Changelog](CHANGELOG.md)
-* [MITLicense](LICENSE)
