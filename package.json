@@ -1,7 +1,7 @@
 {
   "name": "js-refactor",
   "main": "./lib/main",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "JavaScript refactoring package: Rename with `ctrl-alt-r`",
   "repository": "https://github.com/minodisk/js-refactor",
   "license": "MIT",
