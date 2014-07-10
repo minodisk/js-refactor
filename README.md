@@ -40,11 +40,11 @@ Rename all references of the symbol under the cursor.
 
 <!-- ![capture_error](https://cloud.githubusercontent.com/assets/514164/2936037/568a47d8-d841-11e3-84d4-76ba1a8f69b6.gif) -->
 
-You can toggle whether to enable the function or not in the setting view.
+<!-- You can toggle whether to enable the function or not in the setting view. -->
 
-1. Open the setting with `Atom > Preferences`.
+<!-- 1. Open the setting with `Atom > Preferences`.
 2. Input 'js refactor' to `Filter package` and select 'JS Refactor' package.
-3. Toggle checkbox named `Highlight Error`.
+3. Toggle checkbox named `Highlight Error`. -->
 
 ## Custom Setting
 
