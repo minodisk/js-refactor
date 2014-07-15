@@ -1,14 +1,15 @@
-{ Context } = require '../thirdparty/esrefactor'
+{ Context } = require '../vender/esrefactor'
 { parse } = require 'esprima'
 { Range } = require 'atom'
 
-{ inspect } = require 'util'
-
-module.exports =
 class Ripper
 
   @locToRange: ({ start, end }) ->
     new Range [ start.line - 1, start.column ], [ end.line - 1, end.column ]
+
+  @scopeNames: [
+    'source.js'
+  ]
 
   parseOptions:
     loc: true
@@ -20,6 +21,7 @@ class Ripper
     @context = new Context
 
   destruct: ->
+    delete @editor
     delete @context
 
   parse: (code, callback) ->
@@ -47,3 +49,9 @@ class Ripper
     for reference in references
       ranges.push Ripper.locToRange reference.loc
     ranges
+
+module.exports =
+  activate: ->
+  deactivate: ->
+  serialize: ->
+  Ripper: Ripper
