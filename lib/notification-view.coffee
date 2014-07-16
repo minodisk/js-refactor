@@ -15,7 +15,7 @@ class NotificationView extends View
       @span "' package"
   @content: ->
     @div tabindex: -1, class: 'notification overlay from-top native-key-bindings', =>
-      @h1 "Requires another package"
+      @h1 "Requires related package installation"
       @ul => @warn()
       @p "You can install and activate packages using the preference pane."
 
