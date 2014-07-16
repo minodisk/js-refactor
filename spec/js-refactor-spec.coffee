@@ -20,10 +20,13 @@ loadLanguage = ->
     atom.syntax.loadGrammarSync path.resolve grammarDir, filename
 
 activatePackage = (callback) ->
-  activationPromise = atom.packages.activatePackage 'js-refactor'
+  [ activationPromise, watcher ] = []
+  atom.packages.activatePackage 'refactor'
   .then ({ mainModule }) ->
-    callback mainModule.watchers[0]
-
+    watcher = mainModule.watchers[0]
+    activationPromise = atom.packages.activatePackage 'js-refactor'
+    .then ->
+      callback activationPromise, watcher
 
 describe "main", ->
 
@@ -35,7 +38,8 @@ describe "main", ->
       { editorView, editor } = openFile 'fibonacci.js'
       editor.setCursorBufferPosition [0, 4]
       loadLanguage()
-      activationPromise = activatePackage (w) ->
+      activatePackage (p, w) ->
+        activationPromise = p
         watcher = w
 
     it "attaches the views", ->
@@ -68,7 +72,7 @@ describe "main", ->
     describe "when 'js-refactor:rename' event is triggered", ->
 
       it "has multi-cursors", ->
-        atom.workspaceView.trigger 'js-refactor:rename'
+        atom.workspaceView.trigger 'refactor:rename'
         waitsForPromise ->
           activationPromise
         runs ->
@@ -77,7 +81,7 @@ describe "main", ->
     describe "when 'js-refactor:done' event is triggered", ->
 
       it "has single cursor", ->
-        atom.workspaceView.trigger 'js-refactor:done'
+        atom.workspaceView.trigger 'refactor:done'
         waitsForPromise ->
           activationPromise
         runs ->
