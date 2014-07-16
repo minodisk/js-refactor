@@ -1,6 +1,14 @@
+# v0.2.0 on 2014/07/16
+
+* Reform refactor ecosystem. Run as a language plugin of [refactor](https://atom.io/packages/refactor).
+
+# v0.1.4 on 2014/07/16
+
+* Fixed an issue that the reference markers remains when editor is deactivated.
+
 # v0.1.3 on 2014/07/09
 
-* Remap shortcut key to `ctrl-alt-r`
+* Remap shortcut key to `ctrl-alt-r`.
 
 # v0.1.1-v0.1.2 on 2014/07/08
 
