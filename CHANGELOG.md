@@ -1,6 +1,14 @@
-# v0.2.1 on 2014/07/19
+# v0.2.3 on 2014/07/25
+
+* Support CRLF
+
+# v0.2.2 on 2014/07/19
 
 * Support symbol starting with `$` or `_`.
+
+# v0.2.1 on 2014/07/18
+
+* Fix README
 
 # v0.2.0 on 2014/07/16
 
