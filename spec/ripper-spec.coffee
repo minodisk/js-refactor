@@ -27,15 +27,33 @@ describe 'Ripper', ->
     expectEqualRefs ripper,
       new Range([0, 4], [0, 5]),
       new Range([1, 0], [1, 1])
+    expectEqualRefs ripper,
+      new Range([1, 0], [1, 1]),
+      new Range([0, 4], [0, 5])
 
   it 'should find refs in CR', ->
     ripper.parse "var a;\ra = 100;"
     expectEqualRefs ripper,
       new Range([0, 4], [0, 5]),
       new Range([1, 0], [1, 1])
+    expectEqualRefs ripper,
+      new Range([1, 0], [1, 1]),
+      new Range([0, 4], [0, 5])
 
   it 'should find refs in CRLF', ->
     ripper.parse "var a;\r\na = 100;"
     expectEqualRefs ripper,
       new Range([0, 4], [0, 5]),
       new Range([1, 0], [1, 1])
+    expectEqualRefs ripper,
+      new Range([1, 0], [1, 1]),
+      new Range([0, 4], [0, 5])
+
+  it 'should find refs in LFCR', ->
+    ripper.parse "var a;\r\na = 100;"
+    expectEqualRefs ripper,
+      new Range([0, 4], [0, 5]),
+      new Range([1, 0], [1, 1])
+    expectEqualRefs ripper,
+      new Range([1, 0], [1, 1]),
+      new Range([0, 4], [0, 5])

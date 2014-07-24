@@ -29,14 +29,16 @@ class Ripper
     try
       syntax = parse code, @parseOptions
       @context.setCode syntax
-      callback null
+      rLine = /.*(?:\r?\n|\n?\r)/g
+      @lines = (result[0].length while (result = rLine.exec code)?)
+      callback? null
     catch err
-      callback err
+      callback? err
 
   find: ({ row, column }) ->
     pos = 0
     while --row >= 0
-      pos += 1 + @editor.lineLengthForBufferRow row
+      pos += @lines[row]
     pos += column
 
     identification = @context.identify pos
