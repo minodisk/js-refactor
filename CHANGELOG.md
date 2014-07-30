@@ -1,3 +1,7 @@
+# v0.2.4-v0.2.5 on 2014/07/25
+
+* Support showing compile error.
+
 # v0.2.3 on 2014/07/25
 
 * Support CRLF
