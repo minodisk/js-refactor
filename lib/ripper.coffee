@@ -18,11 +18,10 @@ class Ripper
     tokens: true
     tolerant: true
 
-  constructor: (@editor) ->
+  constructor: ->
     @context = new Context
 
   destruct: ->
-    delete @editor
     delete @context
 
   parse: (code, callback) ->
@@ -33,7 +32,12 @@ class Ripper
       @lines = (result[0].length while (result = rLine.exec code)?)
       callback? null
     catch err
-      callback? err
+      { lineNumber, column, description } = err
+      if lineNumber? and column? and description?
+        callback? [
+          range: new Range [lineNumber - 1, column], [lineNumber - 1, column]
+          message: description
+        ]
 
   find: ({ row, column }) ->
     pos = 0
