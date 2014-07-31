@@ -30,14 +30,19 @@ class Ripper
       @context.setCode syntax
       rLine = /.*(?:\r?\n|\n?\r)/g
       @lines = (result[0].length while (result = rLine.exec code)?)
-      callback()
+      callback?() #TODO deprecate
+      return null
     catch err
       { lineNumber, column, description } = err
       if lineNumber? and column? and description?
-        callback [
+        err =
           range: new Range [lineNumber - 1, column], [lineNumber - 1, column]
           message: description
-        ]
+        callback? [ err ] #TODO deprecate
+        return [ err ]
+      else
+        callback?() #TODO deprecate
+        return null
 
   find: ({ row, column }) ->
     pos = 0
