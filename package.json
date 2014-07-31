@@ -1,7 +1,7 @@
 {
   "name": "js-refactor",
   "main": "./lib/js_refactor",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Refactoring support in JavaScript",
   "repository": "https://github.com/minodisk/js-refactor",
   "license": "MIT",
