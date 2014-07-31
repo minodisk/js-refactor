@@ -30,18 +30,18 @@ class Ripper
       @context.setCode syntax
       rLine = /.*(?:\r?\n|\n?\r)/g
       @lines = (result[0].length while (result = rLine.exec code)?)
-      callback()
+      callback?()
     catch err
       { lineNumber, column, description } = err
       if lineNumber? and column? and description?
-        callback [
+        callback? [
           range  : new Range [lineNumber - 1, column], [lineNumber - 1, column]
           message: description
         ]
       else
         # Logs uncaught parse error.
         console.warn err
-        callback()
+        callback?()
 
   find: ({ row, column }) ->
     pos = 0
