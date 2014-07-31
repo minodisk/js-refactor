@@ -1,4 +1,8 @@
-# v0.2.4-v0.2.5 on 2014/07/25
+# v0.2.6 on 2014/07/31
+
+* Fixed declaration symbol starting with `$` is highlighted twice.
+
+# v0.2.4-v0.2.5 on 2014/07/30
 
 * Support showing compile error.
 
@@ -12,7 +16,7 @@
 
 # v0.2.1 on 2014/07/18
 
-* Fix README
+* Fixed typo in README.
 
 # v0.2.0 on 2014/07/16
 

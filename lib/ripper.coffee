@@ -49,7 +49,7 @@ class Ripper
     return [] unless identification
 
     { declaration, references } = identification
-    if declaration?
+    if declaration? and not (declaration in references)
       references.unshift declaration
     ranges = []
     for reference in references

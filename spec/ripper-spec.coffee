@@ -1,4 +1,4 @@
-{ Ripper } = require '../lib/js-refactor'
+{ Ripper } = require '../lib/js_refactor'
 { Range } = require 'atom'
 
 expectNoRefs = (ripper, range) ->
